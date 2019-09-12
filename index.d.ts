@@ -5,9 +5,9 @@ interface IMarkdownProps {
     debug?: boolean;
     parseInline?: boolean;
     useDefaultStyles?: boolean;
-    renderImage?: (src: string, alt: string, title: string) => JSX.Element;
-    renderLink?: (href: string, title: string, children: JSX.Element) => JSX.Element;
-    renderListBullet?: (ordered: boolean, index: number) => JSX.Element;
+    renderImage?: (src: string, alt: string, title: string) => React.ReactNode;
+    renderLink?: (href: string, title: string, children: React.ReactNode) => React.ReactNode;
+    renderListBullet?: (ordered: boolean, index: number) => React.ReactNode;
     markdownStyles?: {
         block?: StyleProp<ViewStyle>;
         blockQuote?: StyleProp<TextStyle>;
@@ -35,6 +35,4 @@ interface IMarkdownProps {
     };
 }
 
-export default class Markdown extends React.Component<
-    IMarkdownProps & ViewProps
-> {}
+export default class Markdown extends React.Component<IMarkdownProps & ViewProps> {}
