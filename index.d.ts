@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 
-interface IMarkdownProps {
+export interface IProps {
     debug?: boolean;
     parseInline?: boolean;
     useDefaultStyles?: boolean;
@@ -35,4 +35,4 @@ interface IMarkdownProps {
     };
 }
 
-export default class Markdown extends React.Component<IMarkdownProps & ViewProps> {}
+export default class Markdown extends React.Component<IProps & ViewProps> {}
