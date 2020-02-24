@@ -1,34 +1,34 @@
 {
-    "name": "react-native-easy-markdown",
-    "version": "1.5.0",
-    "description": "Simple & customizable React Native component to render Github-flavoured markdown using minimal native components.",
-    "main": "lib/index.js",
-    "repository": "https://github.com/TitanInvest/react-native-easy-markdown",
-    "scripts": {
-        "build": "babel index.js styles.js Utils.js -d lib",
-        "prepare": "npm run build",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [
-        "react-native",
-        "native",
-        "markdown",
-        "parse",
-        "parser"
-    ],
-    "contributors": [
-        "Juuso Lappalainen",
-        "Zach Ivester <zach@titanvest.com>"
-    ],
-    "license": "MIT",
-    "dependencies": {
-        "simple-markdown": "^0.4.4"
-    },
-    "peerDependencies": {
-        "react-native": "*"
-    },
-    "devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-preset-react-native": "^4.0.1"
-    }
+  "name": "react-native-easy-markdown",
+  "version": "1.5.0",
+  "description": "Simple & customizable React Native component to render Github-flavoured markdown using minimal native components.",
+  "main": "index.js",
+  "repository": "https://github.com/TitanInvest/react-native-easy-markdown",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard"
+  },
+  "keywords": [
+    "react-native",
+    "native",
+    "markdown",
+    "parse",
+    "parser"
+  ],
+  "contributors": [
+    "Juuso Lappalainen",
+    "Zach Ivester <zach@titanvest.com>",
+    "Gregor MacLennan <gmaclennan@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "simple-markdown": "^0.7.2",
+    "use-memo-one": "^1.1.1"
+  },
+  "peerDependencies": {
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "standard": "^14.3.1"
+  }
 }
