@@ -139,7 +139,7 @@ class Markdown extends Component {
             );
         } else {
             return (
-                <Text key={key} style={style}>{node}</Text>
+                <Text key={key} style={style}>{node.split('\n').join(' ')}</Text>
             );
         }
     }
