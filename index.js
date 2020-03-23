@@ -142,7 +142,7 @@ class Markdown extends Component {
     renderText(node, key, extras, textType) {
         const { styles } = this.state;
 
-        let style = (extras && extras.style) ? [styles.text].concat(extras.style) : styles.text;
+        let style = StyleSheet.flatten(extras && extras.style ? [styles.text].concat(extras.style) : styles.text);
 
         let text = null;
 
