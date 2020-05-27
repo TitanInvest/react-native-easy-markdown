@@ -181,7 +181,7 @@ class Markdown extends Component {
         let children = this.renderNodes(node.props.children, key, extras);
 
         if (this.props.renderLink) {
-            return this.props.renderLink(node.props.href, node.props.title, children, key);
+            return this.props.renderLink(node.props.href, node.props.children[0], children, key);
         }
 
         const SafeWrapper = Utils.isTextOnly(children) ? Text : TouchableOpacity;
