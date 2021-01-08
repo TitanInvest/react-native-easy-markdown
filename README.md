@@ -71,6 +71,7 @@ render() {
 | `renderBlockText`  | Custom renderer for Block Text                                                                                                                                                                                          | function | none          |
 | `renderBlock`      | Custom renderer for Block                                                                                                                                                                                               | function | none          |
 | `renderText`       | Custom renderer for various types of text                                                                                                                                                                               | function | none          |
+| `isTextOnly`       | Utility function to determine if block contains only text (supports styled compenents)                                                                                                                                                           | function | none          |
 
 If you need more control over how some of the components are rendered, you may provide the custom renderers outlined above like so.
 
@@ -134,6 +135,9 @@ renderBlock(children, key)
 
 // Responsible for any block that will only contain text elements below
 renderBlockText(children, key) 
+
+// Responsible for determining if a block contains only text nodes
+isTextOnly(children)
 ```
 
 Notice the `children` parameter passed to `renderLink`, which contains whatever children would otherwise be rendered within the link. In the default implementation, those children will be rendered within a `<TouchableOpacity/>` but this gives you the possibility to provide your own touchable component.

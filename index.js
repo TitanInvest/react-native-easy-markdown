@@ -119,7 +119,7 @@ class Markdown extends Component {
     renderListItem(node, key, index, extras) {
 
         const { styles } = this.state;
-
+        let SafeWrapper;
         let children = this.renderNodes(node.props.children, key, extras);
 
         if (this.props.renderListItem) {
@@ -127,8 +127,12 @@ class Markdown extends Component {
             return this.props.renderListItem(index, ordered, children, key);
         }
 
-        const SafeWrapper = Utils.isTextOnly(children) ? Text : View;
-
+        if (this.props.isTextOnly) {
+            SafeWrapper = this.props.isTextOnly(children) ? Text : View;
+        } else {
+            SafeWrapper = Utils.isTextOnly(children) ? Text : View;
+        }
+        
         return (
             <View style={styles.listItem} key={'listItem_' + key}>
                 {this.props.renderListBullet ? this.props.renderListBullet(extras.ordered, index) : this.renderListBullet(extras.ordered, index)}
@@ -179,12 +183,17 @@ class Markdown extends Component {
         const { styles } = this.state;
         let extras = Utils.concatStyles(null, styles.link);
         let children = this.renderNodes(node.props.children, key, extras);
+        let SafeWrapper;
 
         if (this.props.renderLink) {
             return this.props.renderLink(node.props.href, node.props.title, children, key);
         }
 
-        const SafeWrapper = Utils.isTextOnly(children) ? Text : TouchableOpacity;
+        if (this.props.isTextOnly) {
+            SafeWrapper = this.props.isTextOnly(children) ? Text : TouchableOpacity;
+        } else {
+            SafeWrapper = Utils.isTextOnly(children) ? Text : TouchableOpacity;
+        }
 
         return (
             <SafeWrapper style={styles.linkWrapper} key={'linkWrapper_' + key} onPress={() => Linking.openURL(node.props.href).catch(() => { })}>
@@ -202,7 +211,15 @@ class Markdown extends Component {
         const { styles } = this.state;
 
         let style = [styles.block];
+        let isTextOnly;
         let isBlockQuote;
+
+        if (this.props.isTextOnly) {
+            isTextOnly = this.props.isTextOnly(children);
+        } else {
+            isTextOnly = Utils.isTextOnly(children);
+        }
+        
         if (extras && extras.blockQuote) {
             isBlockQuote = true;
 
@@ -223,7 +240,7 @@ class Markdown extends Component {
                 </View>
             );
         }
-        else if (Utils.isTextOnly(children)) {
+        else if (isTextOnly) {
             if (this.props.renderBlockText) {
                 return this.props.renderBlockText(children, key)
             }
