@@ -17,42 +17,42 @@ class Markdown extends Component {
     constructor(props) {
         super(props);
 
-        const rules = SimpleMarkdown.defaultRules;
-        this.parser = SimpleMarkdown.parserFor(rules);
-        this.reactOutput = SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, 'react'));
-        const blockSource = this.props.children + '\n\n';
-        const parseTree = this.parser(blockSource, { inline: this.props.parseInline });
-        const outputResult = this.reactOutput(parseTree);
-
+        const outputResult = Utils.getSyntaxTree(this.props);
         const defaultStyles = this.props.useDefaultStyles && styles ? styles : {};
         const _styles = StyleSheet.create(Object.assign({}, defaultStyles, this.props.markdownStyles));
 
         this.state = {
             syntaxTree: outputResult,
-            styles: _styles
+            styles: _styles,
+            prevPropsChildren: undefined,
+            prevPropsMarkdownStyles: undefined
         };
     }
 
-    componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(props, state) {
 
-        let newState = {};
+        let newState = Object.assign({}, state);
+        let changed = false;
 
-        if (nextProps.children !== this.props.children) {
-            const blockSource = nextProps.children + '\n\n';
-            const parseTree = this.parser(blockSource, { inline: this.props.parseInline });
-            const outputResult = this.reactOutput(parseTree);
-
+        if (props.children !== state.prevPropsChildren) {
+            const outputResult = Utils.getSyntaxTree(props);
             newState.syntaxTree = outputResult;
+            newState.prevPropsChildren = props.children;
+            changed = true;
         }
 
-        if (nextProps.markdownStyles !== this.props.markdownStyles) {
-            const defaultStyles = this.props.useDefaultStyles && styles ? styles : {};
-            newState.styles = StyleSheet.create(Object.assign(defaultStyles, nextProps.markdownStyles));
+        if (props.markdownStyles !== state.prevPropsMarkdownStyles) {
+            const defaultStyles = props.useDefaultStyles && styles ? styles : {};
+            newState.styles = StyleSheet.create(Object.assign(defaultStyles, props.markdownStyles));
+            newState.prevPropsMarkdownStyles = props.markdownStyles;
+            changed = true;
         }
 
-        if (Object.keys(newState).length !== 0) {
-            this.setState(newState);
-        }
+        if (changed) {
+             return newState;
+         }
+
+         return null;
     }
 
     shouldComponentUpdate(nextProps) {

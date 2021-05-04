@@ -1,3 +1,5 @@
+import SimpleMarkdown from 'simple-markdown';
+
 const Utils = {
     isTextOnly(nodes) {
         try {
@@ -58,6 +60,15 @@ const Utils = {
                 }
             }
         }
+    },
+
+    getSyntaxTree: function getSyntaxTree(props) {
+        const rules = SimpleMarkdown.defaultRules;
+        const parser = SimpleMarkdown.parserFor(rules);
+        const reactOutput = SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, 'react'));
+        const blockSource = props.children + '\n\n';
+        const parseTree = parser(blockSource, { inline: props.parseInline });
+        return reactOutput(parseTree);
     }
 }
 
